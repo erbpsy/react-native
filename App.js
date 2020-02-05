@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet,Text,View} from 'react-native';
-
+import Viewcomponent from './android/app/src/components/view-component'
+import ViewComponentProp from './android/app/src/components/view-component-prop'
 export default class App extends React.Component{
 
 constructor(){
@@ -14,17 +15,20 @@ constructor(){
     nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
     fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-    culpa qui officia deserunt mollit anim id est laborum.`
+    culpa qui officia deserunt mollit anim id est laborum.`,
+    renderPropComponent:false
   }
 
   updateStateNew(){
     this.setState({
+      renderPropComponent:true,
       currentState :"updated New!!!"
     })
   }
 updateState=()=>this.setState({
                                 currentState : `Hello, this is from first demo, Hello World!!!
-                              Value is updated now.............`
+                              Value is updated now.............`,
+                              renderPropComponent:true
                               })
 
 
@@ -34,11 +38,15 @@ updateState=()=>this.setState({
                 <Text onPress={this.updateStateNew}>
                   
                   {this.state.currentState}
-
+                  {this.state.renderPropComponent}
                 </Text>
+              {
+                this.state.renderPropComponent ?
+                <ViewComponentProp currentState={this.state.currentState} updateStateNew={this.updateStateNew}/>
+                : <Viewcomponent/>
+              }  
               </View>
           );
-
         }
 }
 
