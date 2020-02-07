@@ -2,12 +2,17 @@ import React from 'react';
 import {StyleSheet,Text,View} from 'react-native';
 import Viewcomponent from './android/app/src/components/view-component'
 import ViewComponentProp from './android/app/src/components/view-component-prop'
+import ViewComponentBox from './android/app/src/components/view-component-box'
+import ViewComponentList from './android/app/src/components/view-component-list'
 export default class App extends React.Component{
 
 constructor(){
   super()
   this.updateStateNew=this.updateStateNew.bind(this)
+  this.showBoxesNow=this.showBoxesNow.bind(this)
+  this.showListNow=thisshowListNow.bind(this)
 }
+
 
   state={
     currentState:`Lorem ipsum dolor sit amet, consectetur adipisicing elit, used do eiusmod
@@ -15,32 +20,58 @@ constructor(){
     nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
     fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-    culpa qui officia deserunt mollit anim id est laborum.`,
-    renderPropComponent:false
+    culpa qui officia deserunt mollit anim id est laborum. `,
+    renderPropComponent:false,
+    renderBox:false,
+    renderList:false
   }
+
+showBoxesNow(){
+  this.setState({
+    renderBox:!this.state.renderBox
+  })
+}
 
   updateStateNew(){
     this.setState({
       renderPropComponent:true,
+      //renderBox:true,
       currentState :"updated New!!!"
     })
   }
+
+
+  showListNow(){
+    this.setState({
+          renderList=this.state.renderList
+    })
+  }
+
 updateState=()=>this.setState({
                                 currentState : `Hello, this is from first demo, Hello World!!!
                               Value is updated now.............`,
-                              renderPropComponent:true
-                              })
+                              renderPropComponent:true,
+                              //renderBox:true
 
+                              })
 
   render(){
           return(
               <View>
-                <Text onPress={this.updateStateNew}>
-                  
+                <Text style={styleNow.button} onPress={this.showListNow}> click to see list</Text>
+                <Text style={styleNow.button} onPress={this.showBoxesNow}>click to see box </Text>
+                <Text style={styleNow.colorSet} onPress={this.updateStateNew}>
+                {this.state.renderPropComponent}
+                {this.state.renderBox}
                   {this.state.currentState}
-                  {this.state.renderPropComponent}
+               
                 </Text>
               {
+                this.state.renderList?
+                <ViewComponentList/>
+                :
+                this.state.renderBox? 
+                <ViewComponentBox/> :
                 this.state.renderPropComponent ?
                 <ViewComponentProp currentState={this.state.currentState} updateStateNew={this.updateStateNew}/>
                 : <Viewcomponent/>
@@ -48,8 +79,29 @@ updateState=()=>this.setState({
               </View>
           );
         }
+        
 }
 
+const styleNow=StyleSheet.create({
+  colorSet:{
+      color:'green',
+      fontSize:20,
+      fontFamily:"arial",
+      marginTop:20,
+      fontWeight:"bold",
+      textAlign:"center"
+  },
+  button:{
+    borderColor:'red',
+    color:'green',
+    fontSize:20,
+    margin:10,
+    borderBottomWidth:3,
+    backgroundColor:'pink',
+    borderRadius:10
+  }
+  
+  })
 
 // /**
 //  * Sample React Native App
